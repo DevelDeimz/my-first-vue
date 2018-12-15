@@ -23,7 +23,12 @@ export default {
   props: {
     post: {
       type: Object,
-      default: {}
+      default: function () {
+        return {
+          title: 'No posts',
+          isEdit: false
+        }
+      }
     }
   }
 };

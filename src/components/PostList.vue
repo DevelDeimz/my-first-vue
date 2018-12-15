@@ -8,12 +8,13 @@
 <script>
 import PostItem from "./PostItem.vue";
 import PostControl from "./PostControl.vue";
+import Vue from 'vue';
 
 export default {
   data() {
     return {
       newPostId: 1,
-      posts: []
+      posts: null
     };
   },
   components: {
@@ -21,10 +22,15 @@ export default {
   },
   methods: {
     deletePost: function(post) {
+      if (this.posts.length === 1) {
+        this.posts = null;
+        return;
+      }
       this.posts.splice(this.posts.indexOf(post), 1);
     },
     addPost: function(newPost) {
-      if (this.posts.length === 0) {
+      if (!this.posts) {
+        Vue.set(this, 'posts', []);
         this.newPostId = 1;
       }
       let post = {
